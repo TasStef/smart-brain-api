@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  # Backend api
+  backend:
+    container_name: backend
+    # Build the image from the Dockerfile in the current directory
+    build: ./
+    # What commands to run when the container starts
+    command: npm start
+    # Set the working directory for the container
+    working_dir: /usr/src/smart-brain-api
+    # Set environment variables for the container
+    environment:
+      POSTGRES_URI : postgres://admin:admin@postgres:5432/smart-brain
+    # Link the Postgres service to the backend service
+    links:
+      - postgres
+    # Map port 3000 on the host to port 3000 on the container
+    ports:
+      - '3000:3000'
+    # Mount the current directory to the /usr/src/smart-brain-api directory in the container
+    # This allows us to make changes to the code on the host and see the changes reflected in the container
+    volumes:
+      - ./:/usr/src/smart-brain-api
+
+  # Postgres database  Define the Postgres database service
+  postgres:
+    # Set the container name for the Postgres service
+    container_name: postgres
+    # Set environment variables for the Postgres container
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "smart-brain"
+      POSTGRES_HOST: "postgres"
+    # Build image from the Dockerfile in the postgres directory
+    build: ./postgres
+    # Map port 5433 on the host to port 5432 on the container
+    ports:
+      - "5433:5432"
+
+
