@@ -6,7 +6,9 @@ create table users
     name    VARCHAR(100),
     email   TEXT      not null unique,
     entries BIGINT default 0,
-    joined  TIMESTAMP not null
+    joined  TIMESTAMP not null,
+    pet     VARCHAR(100),
+    age     integer
 );
 
 COMMIT;

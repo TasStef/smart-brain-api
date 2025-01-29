@@ -1,6 +1,6 @@
 {
   "legacyWatch": true,
-  "watch": ["server.js", "src"],
+  "watch": ["*"],
   "ext": "js,json",
   "pollingInterval": 500
 }

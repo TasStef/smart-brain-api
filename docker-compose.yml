@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   # Backend api
@@ -14,9 +12,7 @@ services:
     # Set environment variables for the container
     environment:
       POSTGRES_URI : postgres://admin:admin@postgres:5432/smart-brain
-    # Link the Postgres service to the backend service
-    links:
-      - postgres
+      REDIS_URI : redis://redis:6379
     # Map port 3000 on the host to port 3000 on the container
     ports:
       - '3000:3000'
@@ -41,4 +37,9 @@ services:
     ports:
       - "5433:5432"
 
-
+  # Redis server
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6380:6379"
